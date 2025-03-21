@@ -110,6 +110,31 @@
                 android:gravity="center"
                 android:text="Address" />
         </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="44dp"
+                android:src="@drawable/rounded_password_2_24" />
+
+            <TextView
+                style="?attr/textAppearanceBody1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:gravity="center"
+                android:text="Password" />
+        </LinearLayout>
     </LinearLayout>
 
     <Button

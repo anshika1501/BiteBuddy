@@ -1,6 +1,7 @@
 package com.anshu.bitebuddy;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,19 +45,19 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemReselectedListener(item -> {
 
         });
-//        navController
-//                .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
-//                    if (
-//                            navDestination.getId() == R.id.homeFragment ||
-//                                    navDestination.getId() == R.id.cartFragment ||
-//                                    navDestination.getId() == R.id.profileFragment ||
-//                                    navDestination.getId() == R.id.historyFragment
-//                    ) {
-//                        binding.bottomNavigationView.setVisibility(View.VISIBLE);
-//                    } else {
-//                        binding.bottomNavigationView.setVisibility(View.GONE);
-//                    }
-//                });
+        navController
+                .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+                    if (
+                            navDestination.getId() == R.id.homeFragment ||
+                                    navDestination.getId() == R.id.cartFragment ||
+                                    navDestination.getId() == R.id.profileFragment ||
+                                    navDestination.getId() == R.id.historyFragment
+                    ) {
+                        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.bottomNavigationView.setVisibility(View.GONE);
+                    }
+                });
 
     }
 }
