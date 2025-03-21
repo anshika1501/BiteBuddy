@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BiteBuddy</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_cart">Cart</string>
+    <string name="menu_history">History</string>
+    <string name="menu_profile">Account</string>
+    <string name="order_delicious_food">Order Delicious Food !</string>
 </resources>
