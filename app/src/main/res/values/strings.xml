@@ -5,4 +5,5 @@
     <string name="menu_history">History</string>
     <string name="menu_profile">Account</string>
     <string name="order_delicious_food">Order Delicious Food !</string>
+    <string name="search_any_thing">Search for Food</string>
 </resources>

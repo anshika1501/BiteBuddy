@@ -1,6 +1,7 @@
 package com.anshu.bitebuddy;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import com.anshu.bitebuddy.databinding.ActivityMainBinding;
 
@@ -34,5 +36,19 @@ public class MainActivity extends AppCompatActivity {
         var navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
         if (navHostFragment != null) navController = navHostFragment.getNavController();
         else throw new IllegalStateException("NavHostFragment not found");
+
+        NavigationUI.setupWithNavController(
+                binding.bottomNavigationView,
+                navController
+        );
+
+        navController
+                .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+                    if (navDestination.getId() == R.id.homeFragment) {
+                        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.bottomNavigationView.setVisibility(View.GONE);
+                    }
+                });
     }
 }
