@@ -18,4 +18,5 @@
     <color name="bottom_nav">#FFFFFF</color>
     <color name="bottom_sheet_color">#FFFFFF</color>
     <color name="logo_background">#FFFFFF</color>
+    <color name="green">#7ed957</color>
 </resources>
