@@ -1,4 +1,4 @@
-package com.anshu.bitebuddy;
+package com.anshu.bitebuddy.ui.activity.main;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

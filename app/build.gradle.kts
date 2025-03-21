@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs")
 }
 
@@ -44,4 +46,12 @@ dependencies {
 
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.android.compiler)
+
+}
+
+kapt {
+    correctErrorTypes = true
 }
