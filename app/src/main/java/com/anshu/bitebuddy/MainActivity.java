@@ -1,7 +1,6 @@
 package com.anshu.bitebuddy;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
 
         });
@@ -45,19 +44,19 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemReselectedListener(item -> {
 
         });
-        navController
-                .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
-                    if (
-                            navDestination.getId() == R.id.homeFragment ||
-                                    navDestination.getId() == R.id.cartFragment ||
-                                    navDestination.getId() == R.id.profileFragment ||
-                                    navDestination.getId() == R.id.historyFragment
-                    ) {
-                        binding.bottomNavigationView.setVisibility(View.VISIBLE);
-                    } else {
-                        binding.bottomNavigationView.setVisibility(View.GONE);
-                    }
-                });
+//        navController
+//                .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+//                    if (
+//                            navDestination.getId() == R.id.homeFragment ||
+//                                    navDestination.getId() == R.id.cartFragment ||
+//                                    navDestination.getId() == R.id.profileFragment ||
+//                                    navDestination.getId() == R.id.historyFragment
+//                    ) {
+//                        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+//                    } else {
+//                        binding.bottomNavigationView.setVisibility(View.GONE);
+//                    }
+//                });
 
     }
 }
