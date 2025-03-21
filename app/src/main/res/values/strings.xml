@@ -6,4 +6,6 @@
     <string name="menu_profile">Account</string>
     <string name="order_delicious_food">Order Delicious Food !</string>
     <string name="search_any_thing">Search for Food</string>
+    <string name="logout">Logout</string>
+    <string name="design_by_anshika">Design By Anshika</string>
 </resources>

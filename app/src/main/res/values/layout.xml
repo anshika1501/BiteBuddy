@@ -18,4 +18,6 @@
     <dimen name="grid_9">72dp</dimen>
 
     <dimen name="user_profile_image_size">30dp</dimen>
+
+    <dimen name="bottom_nav_height">60dp</dimen>
 </resources>

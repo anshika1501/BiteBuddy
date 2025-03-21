@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anshu.bitebuddy.ui.fragments.profile.ProfileFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:minHeight="?attr/actionBarSize"
+        app:title="@string/menu_profile" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view_profile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/topAppBar"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="500dp">
+
+        <ImageView
+            android:id="@+id/image_view_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            tools:src="@tools:sample/backgrounds/scenic" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/text_view_user_name"
+        style="?attr/textAppearanceTitleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_view_profile"
+        android:layout_marginHorizontal="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_1"
+        android:padding="@dimen/grid_1"
+        android:text="Anshika Priya"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/text_view_user_email"
+        style="?attr/textAppearanceBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_user_name"
+        android:layout_marginHorizontal="@dimen/grid_1"
+        android:padding="@dimen/grid_1"
+        android:text="anshikapriya@aiyu.com"
+        android:textAlignment="center" />
+
+
+    <LinearLayout
+        android:id="@+id/linear_layout_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_user_email"
+        android:layout_marginHorizontal="@dimen/grid_1"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="44dp"
+                android:src="@drawable/rounded_account_circle_24" />
+
+            <TextView
+                style="?attr/textAppearanceBody1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:gravity="center"
+                android:text="Phone Number" />
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="44dp"
+                android:src="@drawable/rounded_location_on_24" />
+
+            <TextView
+                style="?attr/textAppearanceBody1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:gravity="center"
+                android:text="Address" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout_options"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/grid_1"
+        android:text="@string/logout" />
+
+
+    <TextView
+        style="?attr/textAppearanceCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:text="@string/design_by_anshika" />
+</RelativeLayout>

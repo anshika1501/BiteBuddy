@@ -44,7 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         navController
                 .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
-                    if (navDestination.getId() == R.id.homeFragment) {
+                    if (
+                            navDestination.getId() == R.id.homeFragment ||
+                                    navDestination.getId() == R.id.cartFragment ||
+                                    navDestination.getId() == R.id.profileFragment ||
+                                    navDestination.getId() == R.id.historyFragment
+                    ) {
                         binding.bottomNavigationView.setVisibility(View.VISIBLE);
                     } else {
                         binding.bottomNavigationView.setVisibility(View.GONE);
