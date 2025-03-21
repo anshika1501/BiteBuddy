@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 navController
         );
 
+        binding.bottomNavigationView.setOnItemReselectedListener(item -> {
+
+        });
         navController
                 .addOnDestinationChangedListener((navController, navDestination, bundle) -> {
                     if (
@@ -55,5 +58,6 @@ public class MainActivity extends AppCompatActivity {
                         binding.bottomNavigationView.setVisibility(View.GONE);
                     }
                 });
+
     }
 }
