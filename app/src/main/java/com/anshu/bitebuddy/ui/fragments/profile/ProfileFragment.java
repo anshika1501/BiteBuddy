@@ -1,6 +1,7 @@
 package com.anshu.bitebuddy.ui.fragments.profile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class ProfileFragment extends BaseFragment {
                 return;
             }
             if (user != null) {
+                binding.relativeLayoutProfile.setVisibility(View.VISIBLE);
+                binding.linearLayoutLoading.setVisibility(View.GONE);
                 Glide.with(requireContext()).load(user.getProfilePic()).into(binding.imageViewProfile);
                 binding.textViewUserName.setText(user.getName());
                 binding.textViewUserEmail.setText(user.getEmail());

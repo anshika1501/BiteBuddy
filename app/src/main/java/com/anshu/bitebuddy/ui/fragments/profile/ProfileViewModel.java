@@ -15,7 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class ProfileViewModel extends ViewModel {
 
-    private FirebaseInteraction firebaseInteraction;
+    private final FirebaseInteraction firebaseInteraction;
 
     @Inject
     public ProfileViewModel(FirebaseInteraction firebaseInteraction) {
