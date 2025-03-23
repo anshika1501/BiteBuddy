@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs")
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 }
 
 android {
@@ -12,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.anshu.bitebuddy"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -35,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -49,6 +51,7 @@ dependencies {
     implementation(libs.navigation.ui)
 
     implementation(libs.hilt.android)
+    implementation(libs.play.services.auth)
     annotationProcessor(libs.hilt.android.compiler)
 
     implementation(libs.firebase.auth)

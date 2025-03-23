@@ -15,6 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.databinding.ActivityMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
 
