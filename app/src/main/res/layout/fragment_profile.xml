@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:importantForAccessibility="no"
             android:scaleType="center"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            tools:src="@drawable/mit" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
