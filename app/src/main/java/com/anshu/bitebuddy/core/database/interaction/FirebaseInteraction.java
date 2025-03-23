@@ -3,6 +3,7 @@ package com.anshu.bitebuddy.core.database.interaction;
 
 import com.anshu.bitebuddy.core.database.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.function.BiConsumer;
@@ -27,7 +28,18 @@ public class FirebaseInteraction {
 
 
     public void insertUser(User user, Consumer<Exception> onUserAdded) {
-        firebaseFirestore.collection(USER_DATABASE_PATH).document(user.getUid()).set(user).addOnSuccessListener(aVoid -> {
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(user.getUid());
+        ref.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                onUserAdded.accept(null);
+            } else {
+                addUserToDatabase(user, onUserAdded, ref);
+            }
+        }).addOnFailureListener(e -> addUserToDatabase(user, onUserAdded, ref));
+    }
+
+    private static void addUserToDatabase(User user, Consumer<Exception> onUserAdded, DocumentReference ref) {
+        ref.set(user).addOnSuccessListener(aVoid -> {
             onUserAdded.accept(null);
         }).addOnFailureListener(onUserAdded::accept);
     }
@@ -45,9 +57,7 @@ public class FirebaseInteraction {
         });
     }
 
-    public void logOut(
-            Consumer<Void> onLoggedOut
-    ) {
+    public void logOut(Consumer<Void> onLoggedOut) {
         firebaseAuth.signOut();
         onLoggedOut.accept(null);
     }

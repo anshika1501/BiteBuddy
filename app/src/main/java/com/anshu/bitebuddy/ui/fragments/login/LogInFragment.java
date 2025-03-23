@@ -17,6 +17,8 @@ import com.anshu.bitebuddy.utils.BaseFragment;
 import com.anshu.bitebuddy.utils.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -58,7 +60,9 @@ public class LogInFragment extends BaseFragment {
                 return;
             }
             if (user != null) {
-                User mUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(), "", user.getPhotoUrl().toString(), user.getUid());
+                User mUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(),
+                        null, Objects.requireNonNull(user.getPhotoUrl()).toString(),
+                        user.getUid());
                 logInViewModel.insertUser(mUser, e -> {
                     if (e != null) {
                         Log.e(TAG, "onViewCreated: " + e.getMessage());

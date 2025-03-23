@@ -7,6 +7,7 @@ public class User {
     private String address;
     private String profilePic;
     private String uid;
+    private Long createdAt;
 
     public User() {
     }
@@ -18,6 +19,7 @@ public class User {
         this.address = address;
         this.profilePic = profilePic;
         this.uid = uid;
+        this.createdAt = System.currentTimeMillis();
     }
 
     public String getName() {
@@ -67,5 +69,9 @@ public class User {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
     }
 }
