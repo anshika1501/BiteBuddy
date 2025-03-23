@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.firebase.firestore)
+
+    implementation(libs.glide)
 }
 
 kapt {

@@ -41,7 +41,7 @@
         android:layout_marginHorizontal="@dimen/grid_1"
         android:layout_marginTop="@dimen/grid_1"
         android:padding="@dimen/grid_1"
-        android:text="Anshika Priya"
+        tools:text="Anshika Priya"
         android:textAlignment="center" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_below="@+id/text_view_user_name"
         android:layout_marginHorizontal="@dimen/grid_1"
         android:padding="@dimen/grid_1"
-        android:text="anshikapriya@aiyu.com"
+        tools:text="anshikapriya@aiyu.com"
         android:textAlignment="center" />
 
 
@@ -78,12 +78,13 @@
                 android:src="@drawable/rounded_account_circle_24" />
 
             <TextView
+                android:id="@+id/text_view_phone_number"
                 style="?attr/textAppearanceBody1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_1"
                 android:gravity="center"
-                android:text="Phone Number" />
+                tools:text="Phone Number" />
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
@@ -103,38 +104,19 @@
                 android:src="@drawable/rounded_location_on_24" />
 
             <TextView
+                android:id="@+id/text_view_address"
                 style="?attr/textAppearanceBody1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_1"
                 android:gravity="center"
-                android:text="Address" />
+                tools:text="Address" />
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/grid_1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="44dp"
-                android:src="@drawable/rounded_password_2_24" />
-
-            <TextView
-                style="?attr/textAppearanceBody1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/grid_1"
-                android:gravity="center"
-                android:text="Password" />
-        </LinearLayout>
     </LinearLayout>
 
     <Button
