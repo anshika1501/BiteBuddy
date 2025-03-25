@@ -37,10 +37,10 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-    public void loadImage() {
-        executorService.execute(() -> {
-            foodItemList.fetchFoodImages();
-        });
-    }
+//    public void loadImage() {
+//        executorService.execute(() -> {
+//            foodItemList.fetchFoodImages();
+//        });
+//    }
 
 }

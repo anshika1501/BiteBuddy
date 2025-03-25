@@ -76,7 +76,7 @@ public class FirebaseInteraction {
 
     public static enum FoodType {
         ALL,
-        BreakFast,
+        Breakfast,
         Lunch,
         Dinner,
         Snacks
@@ -85,13 +85,13 @@ public class FirebaseInteraction {
     public LiveData<List<Food>> getFoodData(FoodType foodType) {
         if (foodType == FoodType.ALL) {
             return mergeFoodLiveData(
-                    getFoodDataInternal(FoodType.BreakFast),
+                    getFoodDataInternal(FoodType.Breakfast),
                     getFoodDataInternal(FoodType.Lunch),
                     getFoodDataInternal(FoodType.Dinner),
                     getFoodDataInternal(FoodType.Snacks)
             );
         } else {
-            return getFoodDataInternal(FoodType.BreakFast);
+            return getFoodDataInternal(foodType);
         }
     }
 

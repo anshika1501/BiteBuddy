@@ -5,9 +5,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.core.database.interaction.FirebaseInteraction;
@@ -33,6 +33,8 @@ public class HomeFragment extends BaseFragment {
         super(R.layout.fragment_home, Transition.Axis.Y);
     }
 
+    private MutableLiveData<FirebaseInteraction.FoodType> foodType = new MutableLiveData<>(FirebaseInteraction.FoodType.ALL);
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -42,6 +44,23 @@ public class HomeFragment extends BaseFragment {
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 //        binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        homeViewModel.getFoodData(FirebaseInteraction.FoodType.ALL).observe(getViewLifecycleOwner(), adapter::submitList);
+        binding.cardViewAll.setOnClickListener(v -> {
+            foodType.setValue(FirebaseInteraction.FoodType.ALL);
+        });
+        binding.cardViewBreakfast.setOnClickListener(v -> {
+            foodType.setValue(FirebaseInteraction.FoodType.Breakfast);
+        });
+        binding.cardViewLunch.setOnClickListener(v -> {
+            foodType.setValue(FirebaseInteraction.FoodType.Lunch);
+        });
+        binding.cardViewDinner.setOnClickListener(v -> {
+            foodType.setValue(FirebaseInteraction.FoodType.Dinner);
+        });
+        binding.cardViewSnack.setOnClickListener(v -> {
+            foodType.setValue(FirebaseInteraction.FoodType.Snacks);
+        });
+        foodType.observe(getViewLifecycleOwner(), foodType -> {
+            homeViewModel.getFoodData(foodType).observe(getViewLifecycleOwner(), adapter::submitList);
+        });
     }
 }
