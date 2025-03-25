@@ -14,4 +14,5 @@
     <string name="snack">Snack</string>
     <string name="dinner">Dinner</string>
     <string name="all">All</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>

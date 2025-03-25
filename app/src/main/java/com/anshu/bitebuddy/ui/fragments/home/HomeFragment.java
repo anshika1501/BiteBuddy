@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.databinding.FragmentHomeBinding;
@@ -34,5 +35,10 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
+        var adapter = new FoodItemAdapter();
+
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+
     }
 }
