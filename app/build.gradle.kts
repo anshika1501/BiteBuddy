@@ -62,7 +62,8 @@ dependencies {
 
     implementation(libs.glide)
 
-    implementation("org.json:json:20210307")
+    implementation(libs.json)
+    implementation(libs.lifecycle.livedata.ktx)
 }
 
 kapt {

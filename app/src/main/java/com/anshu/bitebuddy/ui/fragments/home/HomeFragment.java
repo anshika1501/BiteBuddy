@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.anshu.bitebuddy.R;
+import com.anshu.bitebuddy.core.database.interaction.FirebaseInteraction;
 import com.anshu.bitebuddy.databinding.FragmentHomeBinding;
 import com.anshu.bitebuddy.utils.BaseFragment;
 import com.anshu.bitebuddy.utils.Transition;
@@ -39,6 +41,7 @@ public class HomeFragment extends BaseFragment {
 
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-
+//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        homeViewModel.getFoodData(FirebaseInteraction.FoodType.ALL).observe(getViewLifecycleOwner(), adapter::submitList);
     }
 }

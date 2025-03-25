@@ -1,11 +1,23 @@
 package com.anshu.bitebuddy.core.database.interaction;
 
 
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.anshu.bitebuddy.core.database.model.Food;
 import com.anshu.bitebuddy.core.database.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -62,6 +74,83 @@ public class FirebaseInteraction {
         onLoggedOut.accept(null);
     }
 
+    public static enum FoodType {
+        ALL,
+        BreakFast,
+        Lunch,
+        Dinner,
+        Snacks
+    }
+
+    public LiveData<List<Food>> getFoodData(FoodType foodType) {
+        if (foodType == FoodType.ALL) {
+            return mergeFoodLiveData(
+                    getFoodDataInternal(FoodType.BreakFast),
+                    getFoodDataInternal(FoodType.Lunch),
+                    getFoodDataInternal(FoodType.Dinner),
+                    getFoodDataInternal(FoodType.Snacks)
+            );
+        } else {
+            return getFoodDataInternal(FoodType.BreakFast);
+        }
+    }
+
+
+    private LiveData<List<Food>> mergeFoodLiveData(
+            LiveData<List<Food>> liveData1,
+            LiveData<List<Food>> liveData2,
+            LiveData<List<Food>> liveData3,
+            LiveData<List<Food>> liveData4
+    ) {
+        MediatorLiveData<List<Food>> mergedLiveData = new MediatorLiveData<>();
+        List<Food> combinedList = new ArrayList<>();
+
+        Observer<List<Food>> observer = newList -> {
+            if (newList != null) {
+                combinedList.addAll(newList);
+            }
+            mergedLiveData.setValue(new ArrayList<>(combinedList)); // Update LiveData
+        };
+
+        mergedLiveData.addSource(liveData1, observer);
+        mergedLiveData.addSource(liveData2, observer);
+        mergedLiveData.addSource(liveData3, observer);
+        mergedLiveData.addSource(liveData4, observer);
+
+        return mergedLiveData;
+    }
+
+
+    private LiveData<List<Food>> getFoodDataInternal(FoodType foodType) {
+        MutableLiveData<List<Food>> liveData = new MutableLiveData<>();
+
+        var ref = firebaseFirestore.collection("food")
+                .document("indian")
+                .collection(foodType.name());
+
+        ref.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                Log.e(TAG, "Error fetching food data", error);
+                liveData.setValue(Collections.emptyList());
+                return;
+            }
+
+            if (value != null && !value.isEmpty()) {
+                List<Food> foodList = new ArrayList<>();
+                for (DocumentSnapshot doc : value.getDocuments()) {
+                    Food food = doc.toObject(Food.class);
+                    if (food != null) {
+                        foodList.add(food);
+                    }
+                }
+                liveData.setValue(foodList);
+            } else {
+                liveData.setValue(Collections.emptyList());
+            }
+        });
+
+        return liveData;
+    }
 }
 
 // BiteBuddy/user/userId/{data}
