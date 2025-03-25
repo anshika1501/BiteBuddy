@@ -1,5 +1,8 @@
 package com.anshu.bitebuddy.core.database.model;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class User {
     private String name;
     private String email;

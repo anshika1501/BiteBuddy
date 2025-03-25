@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.firebase.firestore)
 
     implementation(libs.glide)
+
+    implementation("org.json:json:20210307")
 }
 
 kapt {
