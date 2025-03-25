@@ -3,6 +3,7 @@ package com.anshu.bitebuddy.core.database.interaction;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -104,13 +106,7 @@ public class FirebaseInteraction {
     ) {
         MediatorLiveData<List<Food>> mergedLiveData = new MediatorLiveData<>();
         List<Food> combinedList = new ArrayList<>();
-
-        Observer<List<Food>> observer = newList -> {
-            if (newList != null) {
-                combinedList.addAll(newList);
-            }
-            mergedLiveData.setValue(new ArrayList<>(combinedList)); // Update LiveData
-        };
+        Observer<List<Food>> observer = getListObserver(combinedList, mergedLiveData);
 
         mergedLiveData.addSource(liveData1, observer);
         mergedLiveData.addSource(liveData2, observer);
@@ -118,6 +114,23 @@ public class FirebaseInteraction {
         mergedLiveData.addSource(liveData4, observer);
 
         return mergedLiveData;
+    }
+
+    @NonNull
+    private static Observer<List<Food>> getListObserver(List<Food> combinedList, MediatorLiveData<List<Food>> mergedLiveData) {
+        AtomicInteger sourcesRemaining = new AtomicInteger(4); // Track updates from all sources
+        return
+                newList -> {
+                    if (newList != null) {
+                        combinedList.addAll(newList);
+                    }
+
+                    // When all sources have provided data, shuffle and update LiveData
+                    if (sourcesRemaining.decrementAndGet() == 0) {
+                        Collections.shuffle(combinedList);
+                        mergedLiveData.setValue(new ArrayList<>(combinedList)); // Update LiveData
+                    }
+                };
     }
 
 

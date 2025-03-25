@@ -60,7 +60,11 @@ public class HomeFragment extends BaseFragment {
             foodType.setValue(FirebaseInteraction.FoodType.Snacks);
         });
         foodType.observe(getViewLifecycleOwner(), foodType -> {
-            homeViewModel.getFoodData(foodType).observe(getViewLifecycleOwner(), adapter::submitList);
+            homeViewModel.getFoodData(foodType).observe(getViewLifecycleOwner(), foods -> {
+                adapter.submitList(foods);
+                binding.relativeLayoutItems.setVisibility(View.VISIBLE);
+                binding.linearLayoutLoading.setVisibility(View.GONE);
+            });
         });
     }
 }
