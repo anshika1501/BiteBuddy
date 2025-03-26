@@ -2,6 +2,7 @@ package com.anshu.bitebuddy.ui.fragments.home;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,11 +62,23 @@ public class HomeFragment extends BaseFragment {
             foodType.setValue(FirebaseInteraction.FoodType.Snacks);
         });
         foodType.observe(getViewLifecycleOwner(), foodType -> {
-            homeViewModel.getFoodData(foodType).observe(getViewLifecycleOwner(), foods -> {
-                adapter.submitList(foods);
-                binding.relativeLayoutItems.setVisibility(View.VISIBLE);
-                binding.linearLayoutLoading.setVisibility(View.GONE);
-            });
+            boolean forceRefresh = false;
+
+            if (forceRefresh) {
+                // Invalidate cache if you want to force a network call
+                homeViewModel.invalidateCache(foodType);
+            }
+            homeViewModel.getFoodData(
+                    foodType,
+                    foods -> {
+                        adapter.submitList(foods);
+                        binding.relativeLayoutItems.setVisibility(View.VISIBLE);
+                        binding.linearLayoutLoading.setVisibility(View.GONE);
+                    },
+                    throwable -> {
+                        Toast.makeText(requireContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+            );
         });
         adapter.setOnClickListener(food -> {
             Navigation.findNavController(binding.getRoot())
