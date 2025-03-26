@@ -8,6 +8,7 @@ import com.anshu.bitebuddy.core.database.model.Food;
 import com.anshu.bitebuddy.utils.FoodItemList;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

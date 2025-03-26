@@ -15,8 +15,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class FoodItemAdapter extends ListAdapter<Food, FoodItemAdapter.FoodViewHolder> {
+    private Consumer<Food> onClickListener;
+
+    public void setOnClickListener(Consumer<Food> onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public FoodItemAdapter() {
         super(new DiffUtil.ItemCallback<Food>() {
@@ -50,6 +56,10 @@ public class FoodItemAdapter extends ListAdapter<Food, FoodItemAdapter.FoodViewH
                 .error(R.drawable.baseline_broken_image_24)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.imageViewFood);
+        binding.getRoot().setOnClickListener(v -> {
+            if (onClickListener != null)
+                onClickListener.accept(food);
+        });
     }
 
     public static class FoodViewHolder extends RecyclerView.ViewHolder {

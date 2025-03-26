@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.anshu.bitebuddy.R;
@@ -65,6 +66,12 @@ public class HomeFragment extends BaseFragment {
                 binding.relativeLayoutItems.setVisibility(View.VISIBLE);
                 binding.linearLayoutLoading.setVisibility(View.GONE);
             });
+        });
+        adapter.setOnClickListener(food -> {
+            Navigation.findNavController(binding.getRoot())
+                    .navigate(
+                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food)
+                    );
         });
     }
 }
