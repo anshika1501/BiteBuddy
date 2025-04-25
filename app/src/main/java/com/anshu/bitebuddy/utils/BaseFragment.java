@@ -17,6 +17,11 @@ public class BaseFragment extends Fragment {
         this.axis = axis;
     }
 
+    public BaseFragment(int layoutId) {
+        super(layoutId);
+        this.axis = Transition.Axis.Y;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

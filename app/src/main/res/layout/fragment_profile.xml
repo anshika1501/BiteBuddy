@@ -31,22 +31,16 @@
         android:id="@+id/relative_layout_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/grid_1"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:minHeight="?attr/actionBarSize"
-            app:title="@string/menu_profile" />
 
+        <!-- Profile Image -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_below="@id/topAppBar"
             android:layout_centerHorizontal="true"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="500dp">
@@ -57,113 +51,80 @@
                 android:layout_height="match_parent"
                 android:importantForAccessibility="no"
                 android:scaleType="center"
-                tools:src="@drawable/mit" />
+                tools:src="@tools:sample/avatars" />
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Profile Email -->
         <TextView
-            android:id="@+id/text_view_user_name"
-            style="?attr/textAppearanceTitleLarge"
-            android:layout_width="match_parent"
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_view_profile"
-            android:layout_marginHorizontal="@dimen/grid_1"
-            android:layout_marginTop="@dimen/grid_1"
-            android:padding="@dimen/grid_1"
-            android:textAlignment="center"
-            tools:text="Anshika Priya" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="user name" />
 
         <TextView
-            android:id="@+id/text_view_user_email"
-            style="?attr/textAppearanceBodyLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_user_name"
-            android:layout_marginHorizontal="@dimen/grid_1"
-            android:padding="@dimen/grid_1"
-            android:textAlignment="center"
-            tools:text="anshikapriya@aiyu.com" />
-
-
-        <LinearLayout
-            android:id="@+id/linear_layout_options"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_view_user_email"
-            android:layout_marginHorizontal="@dimen/grid_1"
-            android:orientation="vertical"
-            android:padding="@dimen/grid_1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/grid_1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="44dp"
-                    android:src="@drawable/rounded_account_circle_24" />
-
-                <TextView
-                    android:id="@+id/text_view_phone_number"
-                    style="?attr/textAppearanceBody1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:gravity="center"
-                    tools:text="Phone Number" />
-            </LinearLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/grid_1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="44dp"
-                    android:src="@drawable/rounded_location_on_24" />
-
-                <TextView
-                    android:id="@+id/text_view_address"
-                    style="?attr/textAppearanceBody1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:gravity="center"
-                    tools:text="Address" />
-            </LinearLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button_logout"
+            android:id="@+id/profile_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_options"
+            android:layout_below="@id/profile_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/grid_1"
-            android:text="@string/logout" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="user@example.com" />
+
+        <!-- Phone Number Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phone_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_email"
+            android:layout_marginTop="@dimen/grid_1"
+            android:hint="@string/phone_number"
+            app:endIconDrawable="@drawable/baseline_edit_24"
+            app:endIconMode="custom"
+            app:startIconDrawable="@drawable/outline_phone_in_talk_24">
 
 
-        <TextView
-            style="?attr/textAppearanceCaption"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:paddingEnd="40dp"
+                android:textColor="@color/black"
+                tools:text="+1 (555) 123-4567" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Address Field -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saved_address_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone_layout"
+            android:layout_marginTop="@dimen/grid_1"
+            android:padding="@dimen/grid_1"
+            android:text="@string/saved_address"
+            app:cornerRadius="@dimen/grid_1" />
+
+        <!-- Logout Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/bottom_nav_height_padding"
-            android:text="@string/design_by_anshika" />
+            android:layout_marginTop="32dp"
+            android:padding="@dimen/grid_2"
+            android:text="@string/logout"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="@dimen/grid_1" />
+
     </RelativeLayout>
 </RelativeLayout>

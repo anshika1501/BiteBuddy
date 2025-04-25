@@ -9,7 +9,7 @@
         android:id="@+id/logInFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.login.LogInFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_logInFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -20,7 +20,7 @@
         android:id="@+id/homeFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -29,12 +29,12 @@
         android:id="@+id/cartFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" >
+        tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
-        <action
+    <action
         android:id="@+id/action_cartFragment_to_checkoutFragment"
         app:destination="@id/checkoutFragment" />
 
@@ -53,18 +53,21 @@
         android:id="@+id/profileFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_logInFragment"
             app:destination="@id/logInFragment"
             app:popUpTo="@id/navigation_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_editDetailsFragment"
+            app:destination="@id/editDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.detail.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="food"
             app:argType="com.anshu.bitebuddy.core.database.model.Food" />
@@ -72,5 +75,45 @@
             android:name="fromCart"
             app:argType="boolean" />
     </fragment>
+    <fragment
+        android:id="@+id/editDetailsFragment"
+        android:name="com.anshu.bitebuddy.ui.fragments.profile.edit.EditDetailsFragment"
+        android:label="EditDetailsFragment">
+        <argument
+            android:name="user"
+            app:argType="com.anshu.bitebuddy.core.database.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.anshu.bitebuddy.ui.fragments.address.AddressFragment"
+        android:label="AddressFragment"
+        tools:layout="@layout/fragment_address">
+        <argument
+            android:name="forPlaceOrder"
+            app:argType="boolean" />
+        <argument
+            android:name="fromCart"
+            app:argType="boolean" />
+        <argument
+            android:name="order"
+            app:argType="com.anshu.bitebuddy.core.database.model.OrderModel"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.anshu.bitebuddy.ui.fragments.address.AddAddressFragment"
+        android:label="AddAddressFragment"
+        tools:layout="@layout/fragment_add_address">
+        <argument
+            android:name="address"
+            app:argType="com.anshu.bitebuddy.core.database.model.AddressModel"
+            app:nullable="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_addressFragment"
+        app:destination="@id/addressFragment" />
 
 </navigation>

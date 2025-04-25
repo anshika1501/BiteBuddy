@@ -48,6 +48,17 @@ public class FirebaseInteraction {
         }).addOnFailureListener(e -> addUserToDatabase(user, onUserAdded, ref));
     }
 
+    public void updateUser(User user, Consumer<Exception> onUserAdded) {
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(user.getUid());
+        ref.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                addUserToDatabase(user, onUserAdded, ref);
+            } else {
+                onUserAdded.accept(new Exception("User not found"));
+            }
+        }).addOnFailureListener(onUserAdded::accept);
+    }
+
     private static void addUserToDatabase(User user, Consumer<Exception> onUserAdded, DocumentReference ref) {
         ref.set(user).addOnSuccessListener(aVoid -> {
             onUserAdded.accept(null);

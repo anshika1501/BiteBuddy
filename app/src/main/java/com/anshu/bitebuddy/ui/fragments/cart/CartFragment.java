@@ -3,7 +3,6 @@ package com.anshu.bitebuddy.ui.fragments.cart;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends BaseFragment implements CartItemAdapter.OnCartItemInteractionListener {
-    private TextView textTotalAmount;
 
     private RecyclerView recyclerView;
     private CartItemAdapter adapter;
@@ -56,7 +54,6 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
         adapter = new CartItemAdapter(cartItems, this);
         recyclerView.setAdapter(adapter);
 
-        textTotalAmount = view.findViewById(R.id.textTotalAmount);
 
         firestore = FirebaseFirestore.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -81,8 +78,6 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
                         }
                     }
                     adapter.updateCartItems(cartItems);
-                    textTotalAmount.setText("Total: ₹" + calculateTotal());
-
                 });
         Log.d("CartDebug", "Loaded items: " + cartItems.size());
 

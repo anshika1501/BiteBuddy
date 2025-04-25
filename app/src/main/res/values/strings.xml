@@ -19,5 +19,75 @@
     <string name="quantity">Quantity:</string>
     <string name="remove_from_cart">Remove from cart</string>
     <string name="blank">Blank</string>
+    <string name="orders">Orders</string>
+    <string name="full_name_required">Full Name(Required)</string>
+    <string name="phone_number_required">Phone Number(Required)</string>
+    <string name="house_no_building_name_required">House No,Building Name(Required)</string>
+    <string name="landmark_optional">Landmark (Optional)</string>
+    <string name="select_state">Select State</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="area_street_name_required">Area/Street Name(Required)</string>
+    <string name="add_your_address">Add your address</string>
+    <string name="saved_address">Saved Address</string>
+    <string name="order_details">Order Details</string>
+    <string name="order_placed_successfully">Order placed Succesfully</string>
 
+    <string name="order_id">Order Id</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="item_total">Item total</string>
+    <string name="delivery_fee">Delivery fee</string>
+    <string name="grand_total">Grand total</string>
+    <string name="payment_details">Payment details</string>
+    <string name="payment_method">Payment method</string>
+    <string name="track_order">Track Order</string>
+    <string name="continue_shopping">Continue shoping</string>
+    <string name="shipping_address">Shipping address</string>
+    <string name="shipping_details">"Shipping Details "</string>
+    <string name="cod">COD</string>
+    <string name="place_order">Place Order</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_new_address">Add new Address</string>
+    <string name="order_history">Order History</string>
+    <string name="save">Save</string>
+    <string name="phone_number">Phone number</string>
+
+
+    <string-array name="indian_states">
+        <item>Andhra Pradesh</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chhattisgarh</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jharkhand</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Manipur</item>
+        <item>Meghalaya</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Odisha</item>
+        <item>Punjab</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>Uttarakhand</item>
+        <item>West Bengal</item>
+        <item>Andaman and Nicobar Islands</item>
+        <item>Chandigarh</item>
+        <item>Dadra and Nagar Haveli and Daman and Diu</item>
+        <item>Delhi</item>
+        <item>Lakshadweep</item>
+        <item>Puducherry</item>
+        <item>Ladakh</item>
+        <item>Jammu and Kashmir</item>
+    </string-array>
 </resources>
