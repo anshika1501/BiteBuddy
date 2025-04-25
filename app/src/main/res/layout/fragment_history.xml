@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.anshu.bitebuddy.ui.fragments.history.HistoryFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:minHeight="?attr/actionBarSize"
-        app:title="@string/menu_history" />
 
     <!--    <androidx.recyclerview.widget.RecyclerView-->
     <!--        android:layout_width="match_parent"-->
@@ -23,15 +15,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topAppBar"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="200dp"
-            android:padding="@dimen/grid_1">
+            android:padding="@dimen/grid_1"
+            android:paddingBottom="200dp">
 
             <include
                 layout="@layout/item_history"
@@ -45,23 +36,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/grid_1" />
 
-<!--            <include-->
-<!--                layout="@layout/item_history"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/grid_1" />-->
+            <!--            <include-->
+            <!--                layout="@layout/item_history"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="@dimen/grid_1" />-->
 
-<!--            <include-->
-<!--                layout="@layout/item_history"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/grid_1" />-->
+            <!--            <include-->
+            <!--                layout="@layout/item_history"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="@dimen/grid_1" />-->
 
-<!--            <include-->
-<!--                layout="@layout/item_history"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/grid_1" />-->
+            <!--            <include-->
+            <!--                layout="@layout/item_history"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="@dimen/grid_1" />-->
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

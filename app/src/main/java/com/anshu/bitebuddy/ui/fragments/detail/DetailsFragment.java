@@ -39,9 +39,6 @@ public class DetailsFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentDetailsBinding.bind(view);
-        binding.topAppBar.setNavigationOnClickListener(v -> {
-            navigateUp();
-        });
         var food = args.getFood();
         binding.textViewFoodNameDetails.setText(food.getName());
         binding.textViewDescription.setText(food.getDescription());

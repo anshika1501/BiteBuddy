@@ -120,7 +120,7 @@ public class FirebaseInteraction {
                     newList -> {
                         synchronized (combinedList) {
                             if (newList != null) {
-                                combinedList.addAll(newList);
+                                combinedList.addAll(newList.subList(0, Math.min(5, newList.size())));
                             }
 
                             // When all sources have provided data, shuffle and return
