@@ -83,7 +83,7 @@ public class HomeFragment extends BaseFragment {
         adapter.setOnClickListener(food -> {
             Navigation.findNavController(binding.getRoot())
                     .navigate(
-                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food, false)
+                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food, false, 1)
                     );
         });
         adapter.setOnAddToCartClickListener(food -> {

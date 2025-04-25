@@ -16,8 +16,6 @@ import com.anshu.bitebuddy.databinding.FragmentPlaceOrderBinding;
 import com.anshu.bitebuddy.utils.BaseFragment;
 import com.bumptech.glide.Glide;
 
-import java.util.function.Consumer;
-
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -46,8 +44,9 @@ public class PlaceOrderFragment extends BaseFragment {
         // Set up food details
         binding.foodName.setText(order.getFood().getName());
         binding.foodDescription.setText(order.getFood().getDescription());
-        binding.foodPrice.setText(order.getFood().getPrice() + "");
-        binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice());
+        binding.foodPrice.setText("₹ " + order.getFood().getPrice() + "");
+        binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice() * order.getFood().getQuantity());
+        binding.quantityText.setText(order.getFood().getQuantity() + "");
 
         // Load food image
         Glide.with(requireContext())
@@ -57,20 +56,20 @@ public class PlaceOrderFragment extends BaseFragment {
 
         // Set up quantity controls
         binding.increaseQuantity.setOnClickListener(v -> {
-            int quantity = Integer.parseInt(binding.quantityText.getText().toString());
+            var quantity = Integer.parseInt(binding.quantityText.getText().toString());
             quantity++;
             binding.quantityText.setText(String.valueOf(quantity));
-            binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice());
+            binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice() * quantity);
             order.getFood().setQuantity(quantity);
             order.setPrice(order.getFood().getPrice() * quantity);
         });
 
         binding.decreaseQuantity.setOnClickListener(v -> {
-            int quantity = Integer.parseInt(binding.quantityText.getText().toString());
+            var quantity = Integer.parseInt(binding.quantityText.getText().toString());
             if (quantity > 1) {
                 quantity--;
                 binding.quantityText.setText(String.valueOf(quantity));
-                binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice());
+                binding.totalPrice.setText("Total: ₹ " + order.getFood().getPrice() * quantity);
                 order.getFood().setQuantity(quantity);
                 order.setPrice(order.getFood().getPrice() * quantity);
             }
@@ -94,7 +93,6 @@ public class PlaceOrderFragment extends BaseFragment {
         binding.state.setText(address.getState());
         binding.zipCode.setText(String.valueOf(address.getPostalCode()));
     }
-
 
 
     private void saveOrder(OrderModel order) {

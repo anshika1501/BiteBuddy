@@ -74,6 +74,9 @@
         <argument
             android:name="fromCart"
             app:argType="boolean" />
+        <argument
+            android:name="items"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/editDetailsFragment"

@@ -78,6 +78,7 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
                         }
                     }
                     adapter.updateCartItems(cartItems);
+
                 });
         Log.d("CartDebug", "Loaded items: " + cartItems.size());
 
@@ -116,7 +117,7 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
     @Override
     public void onItemClick(Food item) {
         Navigation.findNavController(recyclerView)
-                .navigate(CartFragmentDirections.actionCartFragmentToDetailsFragment(item, true));
+                .navigate(CartFragmentDirections.actionCartFragmentToDetailsFragment(item, true, item.getQuantity()));
     }
 
     @Override

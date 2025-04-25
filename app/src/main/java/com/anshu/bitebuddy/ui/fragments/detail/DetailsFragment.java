@@ -50,6 +50,7 @@ public class DetailsFragment extends BaseFragment {
         binding.textViewRatingDetails.setText(String.valueOf(food.getRating()));
         binding.buttonAddToCartDetails.setVisibility(args.getFromCart() ? View.GONE : View.VISIBLE);
         Glide.with(binding.getRoot()).load(food.getImage()).centerCrop().error(R.drawable.baseline_broken_image_24).transition(DrawableTransitionOptions.withCrossFade()).into(binding.imageViewFoodDetails);
+        binding.textViewQuantity.setText(args.getItems() + "");
         binding.buttonIncreaseQuantity.setOnClickListener(view1 -> {
             if (quantity < 10) {
                 quantity++;
