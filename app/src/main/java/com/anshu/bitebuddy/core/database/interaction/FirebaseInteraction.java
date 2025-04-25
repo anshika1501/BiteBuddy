@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.anshu.bitebuddy.core.database.model.AddressModel;
 import com.anshu.bitebuddy.core.database.model.Food;
+import com.anshu.bitebuddy.core.database.model.OrderModel;
 import com.anshu.bitebuddy.core.database.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,6 +28,7 @@ public class FirebaseInteraction {
 
     private static final String USER_DATABASE_PATH = "User";
     private static final String USER_ADDRESS_PATH = "address";
+    private static final String USER_ORDER_PATH = "orders";
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
@@ -194,6 +196,18 @@ public class FirebaseInteraction {
         ref.document(path).delete().addOnSuccessListener(aVoid -> {
             onAddressRemoved.accept(null);
         }).addOnFailureListener(onAddressRemoved::accept);
+    }
+
+    public void addOrder(OrderModel orderModel, Consumer<Exception> onOrderAdded) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH)
+                .document(uid)
+                .collection(USER_ORDER_PATH);
+        var path = ref.document().getId();
+        orderModel.setPath(path);
+        ref.document(path).set(orderModel).addOnSuccessListener(aVoid -> {
+            onOrderAdded.accept(null);
+        }).addOnFailureListener(onOrderAdded::accept);
     }
 }
 

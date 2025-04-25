@@ -66,10 +66,13 @@ public class AddressFragment extends BaseFragment {
                     if (args.getForPlaceOrder() && args.getOrder() != null) {
                         var model = args.getOrder();
                         model.setAddress(addressModel);
-//                        Navigation.findNavController(view)
-//                                .navigate(
-//                                        AddressFragmentDirections.actionAddressFragmentToPlaceOrderFragment(model, args.getFromCart())
-//                                );
+                        Navigation.findNavController(view)
+                                .navigate(
+                                        AddressFragmentDirections.actionAddressFragmentToPlaceOrderFragment(
+                                                model,
+                                                args.getFromCart()
+                                        )
+                                );
                     }
                 }
 

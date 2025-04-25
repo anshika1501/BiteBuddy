@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_addressFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />
+        <action
+            android:id="@+id/action_addressFragment_to_placeOrderFragment"
+            app:destination="@id/placeOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/addAddressFragment"
@@ -115,5 +118,22 @@
     <action
         android:id="@+id/action_global_addressFragment"
         app:destination="@id/addressFragment" />
+    <fragment
+        android:id="@+id/placeOrderFragment"
+        android:name="com.anshu.bitebuddy.ui.fragments.placeorder.PlaceOrderFragment"
+        tools:layout="@layout/fragment_place_order"
+        android:label="PlaceOrderFragment" >
+        <action
+            android:id="@+id/action_placeOrderFragment_to_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="order"
+            app:argType="com.anshu.bitebuddy.core.database.model.OrderModel" />
+        <argument
+            android:name="fromCart"
+            app:argType="boolean" />
+    </fragment>
 
 </navigation>

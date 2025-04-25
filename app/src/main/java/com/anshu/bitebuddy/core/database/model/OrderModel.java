@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Keep
 public class OrderModel implements Serializable {
-    private Food furniture;
+    private Food food;
     private double price;
     private OrderStates orderState;
     private AddressModel address;
@@ -14,7 +14,7 @@ public class OrderModel implements Serializable {
     private String path;
 
     public OrderModel(Food food, double price, AddressModel address, Long orderedAt, String path) {
-        this.furniture = food;
+        this.food = food;
         this.price = price;
         this.address = address;
         this.orderedAt = orderedAt;
@@ -25,12 +25,12 @@ public class OrderModel implements Serializable {
     public OrderModel() {
     }
 
-    public Food getFurniture() {
-        return furniture;
+    public Food getFood() {
+        return food;
     }
 
-    public void setFurniture(Food furniture) {
-        this.furniture = furniture;
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public double getPrice() {
