@@ -30,6 +30,16 @@
         android:name="com.anshu.bitebuddy.ui.fragments.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
+        <action
+        android:id="@+id/action_cartFragment_to_checkoutFragment"
+        app:destination="@id/checkoutFragment" />
+
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.anshu.bitebuddy.ui.fragments.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout" />
+
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.history.HistoryFragment"
@@ -55,4 +65,5 @@
             android:name="food"
             app:argType="com.anshu.bitebuddy.core.database.model.Food" />
     </fragment>
+
 </navigation>

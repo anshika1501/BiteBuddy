@@ -16,32 +16,20 @@ import java.util.function.Consumer;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-
 @HiltViewModel
 public class HomeViewModel extends ViewModel {
-
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     @Inject
     FoodItemList foodItemList;
-
     @Inject
     FirebaseInteraction firebaseInteraction;
-
-
-    // Cache to store food data
     private final Map<FirebaseInteraction.FoodType, List<Food>> foodCache = new HashMap<>();
-
-    // Timestamp to track cache validity
     private final Map<FirebaseInteraction.FoodType, Long> cacheTimetamps = new HashMap<>();
-
-    // Cache validity duration (e.g., 5 minutes)
     private static final long CACHE_VALIDITY_DURATION = 5 * 60 * 1000; // 5 minutes
 
     @Inject
     public HomeViewModel() {
-        // Empty constructor for Hilt injection
-    }
-
+           }
     public void getFoodData(
             FirebaseInteraction.FoodType foodType,
             Consumer<List<Food>> onSuccess,
@@ -52,7 +40,6 @@ public class HomeViewModel extends ViewModel {
             onSuccess.accept(foodCache.get(foodType));
             return;
         }
-
         // Fetch data from Firebase
         firebaseInteraction.getFoodData(
                 foodType,

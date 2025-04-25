@@ -7,12 +7,14 @@ import java.io.Serializable;
 @Keep
 public class Food implements Serializable {
     private String name;
+    private String id;
     private int price;
     private String description;
     private String image;
     private String category;
     private int rating;
-//    Id
+    private int quantity = 1; // Add this line in the fields section
+
     private String path;
 
     private Long created;
@@ -38,6 +40,13 @@ public class Food implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getPrice() {
@@ -90,5 +99,12 @@ public class Food implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

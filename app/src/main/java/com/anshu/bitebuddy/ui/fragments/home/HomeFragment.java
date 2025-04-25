@@ -15,6 +15,7 @@ import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.core.database.interaction.FirebaseInteraction;
 import com.anshu.bitebuddy.databinding.FragmentHomeBinding;
 import com.anshu.bitebuddy.utils.BaseFragment;
+import com.anshu.bitebuddy.utils.CartManager;
 import com.anshu.bitebuddy.utils.Transition;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -65,8 +66,7 @@ public class HomeFragment extends BaseFragment {
             boolean forceRefresh = false;
 
             if (forceRefresh) {
-                // Invalidate cache if you want to force a network call
-                homeViewModel.invalidateCache(foodType);
+                  homeViewModel.invalidateCache(foodType);
             }
             homeViewModel.getFoodData(
                     foodType,
@@ -79,12 +79,21 @@ public class HomeFragment extends BaseFragment {
                         Toast.makeText(requireContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
             );
-        });
+         });
         adapter.setOnClickListener(food -> {
             Navigation.findNavController(binding.getRoot())
                     .navigate(
                             HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food)
                     );
         });
+        adapter.setOnAddToCartClickListener(food -> {
+            food.setId(food.getName());
+            CartManager.addToCart(
+                    food,
+                    () -> Toast.makeText(requireContext(), food.getName() + " added to cart", Toast.LENGTH_SHORT).show(),
+                    () -> Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
+            );
+        });
+
     }
 }

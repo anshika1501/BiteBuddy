@@ -17,4 +17,7 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="buy_now">Buy Now</string>
     <string name="quantity">Quantity:</string>
+    <string name="remove_from_cart">Remove from cart</string>
+    <string name="blank">Blank</string>
+
 </resources>

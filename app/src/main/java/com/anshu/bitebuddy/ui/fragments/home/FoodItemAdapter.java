@@ -19,9 +19,15 @@ import java.util.function.Consumer;
 
 public class FoodItemAdapter extends ListAdapter<Food, FoodItemAdapter.FoodViewHolder> {
     private Consumer<Food> onClickListener;
+    private Consumer<Food> onAddToCartClickListener;
+
+    public void setOnAddToCartClickListener(Consumer<Food> listener) {
+        this.onAddToCartClickListener = listener;
+    }
 
     public void setOnClickListener(Consumer<Food> onClickListener) {
         this.onClickListener = onClickListener;
+
     }
 
     public FoodItemAdapter() {
@@ -56,11 +62,16 @@ public class FoodItemAdapter extends ListAdapter<Food, FoodItemAdapter.FoodViewH
                 .error(R.drawable.baseline_broken_image_24)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.imageViewFood);
+
         binding.getRoot().setOnClickListener(v -> {
             if (onClickListener != null)
                 onClickListener.accept(food);
         });
-    }
+        binding.buttonAddToCart.setOnClickListener(v -> {
+            if (onAddToCartClickListener != null)
+                onAddToCartClickListener.accept(food);
+        });
+        }
 
     public static class FoodViewHolder extends RecyclerView.ViewHolder {
 
