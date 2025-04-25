@@ -3,6 +3,7 @@ package com.anshu.bitebuddy.core.database.interaction;
 
 import android.util.Log;
 
+import com.anshu.bitebuddy.core.database.model.AddressModel;
 import com.anshu.bitebuddy.core.database.model.Food;
 import com.anshu.bitebuddy.core.database.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,7 @@ public class FirebaseInteraction {
     private static final String TAG = "FirebaseInteraction";
 
     private static final String USER_DATABASE_PATH = "User";
+    private static final String USER_ADDRESS_PATH = "address";
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
@@ -150,86 +152,37 @@ public class FirebaseInteraction {
         });
     }
 
-//    public LiveData<List<Food>> getFoodData(FoodType foodType) {
-//        if (foodType == FoodType.ALL) {
-//            return mergeFoodLiveData(
-//                    getFoodDataInternal(FoodType.Breakfast),
-//                    getFoodDataInternal(FoodType.Lunch),
-//                    getFoodDataInternal(FoodType.Dinner),
-//                    getFoodDataInternal(FoodType.Snacks)
-//            );
-//        } else {
-//            return getFoodDataInternal(foodType);
-//        }
-//    }
-//
-//
-//    private LiveData<List<Food>> mergeFoodLiveData(
-//            LiveData<List<Food>> liveData1,
-//            LiveData<List<Food>> liveData2,
-//            LiveData<List<Food>> liveData3,
-//            LiveData<List<Food>> liveData4
-//    ) {
-//        MediatorLiveData<List<Food>> mergedLiveData = new MediatorLiveData<>();
-//        List<Food> combinedList = new ArrayList<>();
-//        Observer<List<Food>> observer = getListObserver(combinedList, mergedLiveData);
-//
-//        mergedLiveData.addSource(liveData1, observer);
-//        mergedLiveData.addSource(liveData2, observer);
-//        mergedLiveData.addSource(liveData3, observer);
-//        mergedLiveData.addSource(liveData4, observer);
-//
-//        return mergedLiveData;
-//    }
-//
-//    @NonNull
-//    private static Observer<List<Food>> getListObserver(List<Food> combinedList, MediatorLiveData<List<Food>> mergedLiveData) {
-//        AtomicInteger sourcesRemaining = new AtomicInteger(4); // Track updates from all sources
-//        return
-//                newList -> {
-//                    if (newList != null) {
-//                        combinedList.addAll(newList);
-//                    }
-//
-//                    // When all sources have provided data, shuffle and update LiveData
-//                    if (sourcesRemaining.decrementAndGet() == 0) {
-//                        Collections.shuffle(combinedList);
-//                        mergedLiveData.setValue(new ArrayList<>(combinedList)); // Update LiveData
-//                    }
-//                };
-//    }
-//
-//
-//    private LiveData<List<Food>> getFoodDataInternal(FoodType foodType) {
-//        MutableLiveData<List<Food>> liveData = new MutableLiveData<>();
-//
-//        var ref = firebaseFirestore.collection("food")
-//                .document("indian")
-//                .collection(foodType.name());
-//
-//        ref.addSnapshotListener((value, error) -> {
-//            if (error != null) {
-//                Log.e(TAG, "Error fetching food data", error);
-//                liveData.setValue(Collections.emptyList());
-//                return;
-//            }
-//
-//            if (value != null && !value.isEmpty()) {
-//                List<Food> foodList = new ArrayList<>();
-//                for (DocumentSnapshot doc : value.getDocuments()) {
-//                    Food food = doc.toObject(Food.class);
-//                    if (food != null) {
-//                        foodList.add(food);
-//                    }
-//                }
-//                liveData.setValue(foodList);
-//            } else {
-//                liveData.setValue(Collections.emptyList());
-//            }
-//        });
-//
-//        return liveData;
-//    }
+    public void addAddress(AddressModel addressModel, Consumer<Exception> onAddressAdded) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_ADDRESS_PATH);
+        ref.document(addressModel.getPath()).set(addressModel).addOnSuccessListener(aVoid -> {
+            onAddressAdded.accept(null);
+        }).addOnFailureListener(onAddressAdded::accept);
+    }
+
+    public void getAddress(BiConsumer<List<AddressModel>, Exception> onSuccess) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_ADDRESS_PATH);
+        ref.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                onSuccess.accept(null, error);
+                return;
+            }
+            if (value != null && !value.isEmpty()) {
+                List<AddressModel> addressList = value.toObjects(AddressModel.class);
+                onSuccess.accept(addressList, null);
+            } else {
+                onSuccess.accept(null, new FirebaseInteractionNoDataFoundException());
+            }
+        });
+    }
+
+    public void removeAddress(String path, Consumer<Exception> onAddressRemoved) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_ADDRESS_PATH);
+        ref.document(path).delete().addOnSuccessListener(aVoid -> {
+            onAddressRemoved.accept(null);
+        }).addOnFailureListener(onAddressRemoved::accept);
+    }
 }
 
-// BiteBuddy/user/userId/{data}

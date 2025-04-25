@@ -1,21 +1,19 @@
 package com.anshu.bitebuddy.ui.fragments.cart;
-import android.widget.TextView;
-import com.google.android.material.button.MaterialButton;
-import androidx.navigation.Navigation; // for navigation
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.core.database.model.Food;
-import com.anshu.bitebuddy.ui.adapters.CartItemAdapter;
 import com.anshu.bitebuddy.utils.BaseFragment;
 import com.anshu.bitebuddy.utils.Transition;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +26,6 @@ import java.util.List;
 
 public class CartFragment extends BaseFragment implements CartItemAdapter.OnCartItemInteractionListener {
     private TextView textTotalAmount;
-    private MaterialButton buttonPlaceOrder;
 
     private RecyclerView recyclerView;
     private CartItemAdapter adapter;
@@ -36,10 +33,12 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
     private FirebaseFirestore firestore;
     private DocumentReference userCartRef;
     private ListenerRegistration cartListener;
+    private static final String userCartPath = "User";
 
     public CartFragment() {
         super(R.layout.fragment_cart, Transition.Axis.Y);
     }
+
     private double calculateTotal() {
         double total = 0.0;
         for (Food item : cartItems) {
@@ -58,32 +57,16 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
         recyclerView.setAdapter(adapter);
 
         textTotalAmount = view.findViewById(R.id.textTotalAmount);
-        buttonPlaceOrder = view.findViewById(R.id.buttonPlaceOrder);
-
-        buttonPlaceOrder.setOnClickListener(v -> {
-            if (cartItems.isEmpty()) {
-                Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // 🔁 You can pass cartItems or total to CheckoutFragment via bundle
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("cartItems", new ArrayList<>(cartItems));
-            bundle.putDouble("totalAmount", calculateTotal());
-
-            Navigation.findNavController(v).navigate(R.id.action_cartFragment_to_checkoutFragment, bundle);
-        });
-
 
         firestore = FirebaseFirestore.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        userCartRef = firestore.collection("users").document(uid).collection("cart").document(); // adjust if needed
+        userCartRef = firestore.collection(userCartPath).document(uid).collection("cart").document(); // adjust if needed
 
         listenToCartUpdates(uid);
     }
 
     private void listenToCartUpdates(String uid) {
-        cartListener = firestore.collection("users").document(uid).collection("cart")
+        cartListener = firestore.collection(userCartPath).document(uid).collection("cart")
                 .addSnapshotListener((value, error) -> {
                     if (error != null || value == null) {
                         Toast.makeText(requireContext(), "Error loading cart", Toast.LENGTH_SHORT).show();
@@ -122,7 +105,7 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
 
     private void updateQuantity(Food item, int newQuantity) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        firestore.collection("users").document(uid).collection("cart")
+        firestore.collection(userCartPath).document(uid).collection("cart")
                 .document(item.getId())
                 .update("quantity", newQuantity);
     }
@@ -130,8 +113,15 @@ public class CartFragment extends BaseFragment implements CartItemAdapter.OnCart
     @Override
     public void onRemoveItem(Food item) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        firestore.collection("users").document(uid).collection("cart")
+        firestore.collection(userCartPath).document(uid).collection("cart")
                 .document(item.getId()).delete();
+        Toast.makeText(requireContext(), "Called", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(Food item) {
+        Navigation.findNavController(recyclerView)
+                .navigate(CartFragmentDirections.actionCartFragmentToDetailsFragment(item, true));
     }
 
     @Override

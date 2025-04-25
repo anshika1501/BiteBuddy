@@ -66,7 +66,7 @@ public class HomeFragment extends BaseFragment {
             boolean forceRefresh = false;
 
             if (forceRefresh) {
-                  homeViewModel.invalidateCache(foodType);
+                homeViewModel.invalidateCache(foodType);
             }
             homeViewModel.getFoodData(
                     foodType,
@@ -79,11 +79,11 @@ public class HomeFragment extends BaseFragment {
                         Toast.makeText(requireContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
             );
-         });
+        });
         adapter.setOnClickListener(food -> {
             Navigation.findNavController(binding.getRoot())
                     .navigate(
-                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food)
+                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(food, false)
                     );
         });
         adapter.setOnAddToCartClickListener(food -> {

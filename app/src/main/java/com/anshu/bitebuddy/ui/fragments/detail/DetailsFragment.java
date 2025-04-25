@@ -43,24 +43,12 @@ public class DetailsFragment extends BaseFragment {
             navigateUp();
         });
         var food = args.getFood();
-        binding.textViewFoodNameDetails.setText(
-                food.getName()
-        );
-        binding.textViewDescription.setText(
-                food.getDescription()
-        );
-        binding.textViewFoodPriceDetails.setText(
-                food.getPrice() + " ₹"
-        );
-        binding.textViewRatingDetails.setText(
-                String.valueOf(food.getRating())
-        );
-        Glide.with(binding.getRoot())
-                .load(food.getImage())
-                .centerCrop()
-                .error(R.drawable.baseline_broken_image_24)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imageViewFoodDetails);
+        binding.textViewFoodNameDetails.setText(food.getName());
+        binding.textViewDescription.setText(food.getDescription());
+        binding.textViewFoodPriceDetails.setText(food.getPrice() + " ₹");
+        binding.textViewRatingDetails.setText(String.valueOf(food.getRating()));
+        binding.buttonAddToCartDetails.setVisibility(args.getFromCart() ? View.GONE : View.VISIBLE);
+        Glide.with(binding.getRoot()).load(food.getImage()).centerCrop().error(R.drawable.baseline_broken_image_24).transition(DrawableTransitionOptions.withCrossFade()).into(binding.imageViewFoodDetails);
 
     }
 

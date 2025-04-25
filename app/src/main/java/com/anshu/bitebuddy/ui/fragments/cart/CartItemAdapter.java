@@ -1,4 +1,5 @@
-package com.anshu.bitebuddy.ui.adapters;
+package com.anshu.bitebuddy.ui.fragments.cart;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anshu.bitebuddy.R;
 import com.anshu.bitebuddy.core.database.model.Food;
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -23,8 +23,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartVi
 
     public interface OnCartItemInteractionListener {
         void onIncreaseQuantity(Food item);
+
         void onDecreaseQuantity(Food item);
+
         void onRemoveItem(Food item);
+
+        void onItemClick(Food item);
     }
 
     public CartItemAdapter(List<Food> cartItems, OnCartItemInteractionListener listener) {
@@ -57,9 +61,10 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartVi
                 .placeholder(R.drawable.food)
                 .into(holder.foodImage);
 
-      //  holder.increaseQuantity.setOnClickListener(v -> listener.onIncreaseQuantity(item));
-     //   holder.decreaseQuantity.setOnClickListener(v -> listener.onDecreaseQuantity(item));
-     //   holder.removeButton.setOnClickListener(v -> listener.onRemoveItem(item));
+        holder.increaseQuantity.setOnClickListener(v -> listener.onIncreaseQuantity(item));
+        holder.decreaseQuantity.setOnClickListener(v -> listener.onDecreaseQuantity(item));
+        holder.removeButton.setOnClickListener(v -> listener.onRemoveItem(item));
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(item));
     }
 
     @Override
@@ -67,19 +72,21 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartVi
         return cartItems == null ? 0 : cartItems.size();
     }
 
-    static class CartViewHolder extends RecyclerView.ViewHolder {
+    class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView foodImage;
         TextView foodName, price, quantity;
-        
+        ImageButton increaseQuantity, decreaseQuantity, removeButton;
+
+
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             foodImage = itemView.findViewById(R.id.image_view_food);
             foodName = itemView.findViewById(R.id.text_view_food_name);
             price = itemView.findViewById(R.id.text_view_price);
             quantity = itemView.findViewById(R.id.text_view_quantity);
-          //  increaseQuantity = itemView.findViewById(R.id.button_increase_quantity);
-          //  decreaseQuantity = itemView.findViewById(R.id.button_decrease_quantity);
-           // removeButton = itemView.findViewById(R.id.button_remove_from_cart);
+            increaseQuantity = itemView.findViewById(R.id.button_increase_quantity);
+            decreaseQuantity = itemView.findViewById(R.id.button_decrease_quantity);
+            removeButton = itemView.findViewById(R.id.button_remove_from_cart);
         }
     }
 }

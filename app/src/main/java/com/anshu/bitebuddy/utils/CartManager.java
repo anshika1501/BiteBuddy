@@ -24,7 +24,7 @@ public class CartManager {
         String foodId = food.getId() != null ? food.getId() : food.getName();
         food.setId(foodId); // Make sure ID is set in the food object
 
-        firestore.collection("users")
+        firestore.collection("User")
                 .document(uid)
                 .collection("cart")
                 .document(foodId)
@@ -48,7 +48,7 @@ public class CartManager {
                     } else {
                         // New item — add with quantity 1
                         food.setQuantity(1);
-                        firestore.collection("users")
+                        firestore.collection("User")
                                 .document(uid)
                                 .collection("cart")
                                 .document(foodId)
