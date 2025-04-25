@@ -16,6 +16,8 @@ import com.anshu.bitebuddy.databinding.FragmentPlaceOrderBinding;
 import com.anshu.bitebuddy.utils.BaseFragment;
 import com.bumptech.glide.Glide;
 
+import java.util.function.Consumer;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -102,10 +104,14 @@ public class PlaceOrderFragment extends BaseFragment {
 
         firebaseInteraction.addOrder(order, e -> {
             if (e == null) {
-                // Order placed successfully
-                showToast("Order placed successfully");
-                Navigation.findNavController(binding.getRoot())
-                        .navigate(PlaceOrderFragmentDirections.actionPlaceOrderFragmentToHistoryFragment());
+                firebaseInteraction.removeFromCart(
+                        order.getFood().getName(),
+                        e1 -> {
+                            showToast("Order placed successfully");
+                            Navigation.findNavController(binding.getRoot())
+                                    .navigate(PlaceOrderFragmentDirections.actionPlaceOrderFragmentToHistoryFragment());
+                        }
+                );
             } else {
                 // Handle error
                 showToast("Failed to place order: " + e.getMessage());

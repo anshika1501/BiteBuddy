@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.login.LogInFragment"
-        android:label="fragment_login"
+        android:label=""
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_logInFragment_to_homeFragment"
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.cart.CartFragment"
-        android:label="fragment_cart"
+        android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_detailsFragment"
@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.history.HistoryFragment"
-        android:label="fragment_history"
+        android:label="@string/menu_history"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/profileFragment"
@@ -66,7 +66,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.detail.DetailsFragment"
-        android:label="fragment_details"
+        android:label="Details"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="food"
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/editDetailsFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.profile.edit.EditDetailsFragment"
-        android:label="EditDetailsFragment">
+        android:label="Edit Details">
         <argument
             android:name="user"
             app:argType="com.anshu.bitebuddy.core.database.model.User" />
@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.address.AddressFragment"
-        android:label="AddressFragment"
+        android:label="Address"
         tools:layout="@layout/fragment_address">
         <argument
             android:name="forPlaceOrder"
@@ -108,7 +108,7 @@
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.address.AddAddressFragment"
-        android:label="AddAddressFragment"
+        android:label="Add Address"
         tools:layout="@layout/fragment_add_address">
         <argument
             android:name="address"
@@ -121,8 +121,8 @@
     <fragment
         android:id="@+id/placeOrderFragment"
         android:name="com.anshu.bitebuddy.ui.fragments.placeorder.PlaceOrderFragment"
-        tools:layout="@layout/fragment_place_order"
-        android:label="PlaceOrderFragment" >
+        android:label="Place Order"
+        tools:layout="@layout/fragment_place_order">
         <action
             android:id="@+id/action_placeOrderFragment_to_historyFragment"
             app:destination="@id/historyFragment"

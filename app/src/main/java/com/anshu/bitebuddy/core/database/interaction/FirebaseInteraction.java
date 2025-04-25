@@ -29,6 +29,7 @@ public class FirebaseInteraction {
     private static final String USER_DATABASE_PATH = "User";
     private static final String USER_ADDRESS_PATH = "address";
     private static final String USER_ORDER_PATH = "orders";
+    private static final String USER_CART_PATH = "cart";
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
@@ -86,65 +87,41 @@ public class FirebaseInteraction {
     }
 
     public enum FoodType {
-        ALL,
-        Breakfast,
-        Lunch,
-        Dinner,
-        Snacks
+        ALL, Breakfast, Lunch, Dinner, Snacks
     }
 
 
     public void getFoodData(FoodType foodType, Consumer<List<Food>> onDataReceived, Consumer<Throwable> onError) {
         if (foodType == FoodType.ALL) {
-            mergeFoodData(
-                    onDataReceived,
-                    onError,
-                    FoodType.Breakfast,
-                    FoodType.Lunch,
-                    FoodType.Dinner,
-                    FoodType.Snacks
-            );
+            mergeFoodData(onDataReceived, onError, FoodType.Breakfast, FoodType.Lunch, FoodType.Dinner, FoodType.Snacks);
         } else {
             getFoodDataInternal(foodType, onDataReceived, onError);
         }
     }
 
-    private void mergeFoodData(
-            Consumer<List<Food>> onDataReceived,
-            Consumer<Throwable> onError,
-            FoodType... foodTypes
-    ) {
+    private void mergeFoodData(Consumer<List<Food>> onDataReceived, Consumer<Throwable> onError, FoodType... foodTypes) {
         List<Food> combinedList = new ArrayList<>();
         AtomicInteger sourcesRemaining = new AtomicInteger(foodTypes.length);
 
         for (FoodType foodType : foodTypes) {
-            getFoodDataInternal(foodType,
-                    newList -> {
-                        synchronized (combinedList) {
-                            if (newList != null) {
-                                combinedList.addAll(newList.subList(0, Math.min(5, newList.size())));
-                            }
+            getFoodDataInternal(foodType, newList -> {
+                synchronized (combinedList) {
+                    if (newList != null) {
+                        combinedList.addAll(newList.subList(0, Math.min(5, newList.size())));
+                    }
 
-                            // When all sources have provided data, shuffle and return
-                            if (sourcesRemaining.decrementAndGet() == 0) {
-                                Collections.shuffle(combinedList);
-                                onDataReceived.accept(new ArrayList<>(combinedList));
-                            }
-                        }
-                    },
-                    onError
-            );
+                    // When all sources have provided data, shuffle and return
+                    if (sourcesRemaining.decrementAndGet() == 0) {
+                        Collections.shuffle(combinedList);
+                        onDataReceived.accept(new ArrayList<>(combinedList));
+                    }
+                }
+            }, onError);
         }
     }
 
-    private void getFoodDataInternal(
-            FoodType foodType,
-            Consumer<List<Food>> onDataReceived,
-            Consumer<Throwable> onError
-    ) {
-        var ref = firebaseFirestore.collection("food")
-                .document("indian")
-                .collection(foodType.name());
+    private void getFoodDataInternal(FoodType foodType, Consumer<List<Food>> onDataReceived, Consumer<Throwable> onError) {
+        var ref = firebaseFirestore.collection("food").document("indian").collection(foodType.name());
 
         ref.get().addOnSuccessListener(queryDocumentSnapshots -> {
             if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
@@ -200,14 +177,38 @@ public class FirebaseInteraction {
 
     public void addOrder(OrderModel orderModel, Consumer<Exception> onOrderAdded) {
         String uid = firebaseAuth.getUid();
-        var ref = firebaseFirestore.collection(USER_DATABASE_PATH)
-                .document(uid)
-                .collection(USER_ORDER_PATH);
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_ORDER_PATH);
         var path = ref.document().getId();
         orderModel.setPath(path);
         ref.document(path).set(orderModel).addOnSuccessListener(aVoid -> {
             onOrderAdded.accept(null);
         }).addOnFailureListener(onOrderAdded::accept);
     }
+
+    public void getOrders(BiConsumer<List<OrderModel>, Exception> onSuccess) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_ORDER_PATH);
+        ref.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                onSuccess.accept(null, error);
+                return;
+            }
+            if (value != null && !value.isEmpty()) {
+                List<OrderModel> orderList = value.toObjects(OrderModel.class);
+                onSuccess.accept(orderList, null);
+            } else {
+                onSuccess.accept(null, new FirebaseInteractionNoDataFoundException());
+            }
+        });
+    }
+
+    public void removeFromCart(String path, Consumer<Exception> onAddressRemoved) {
+        String uid = firebaseAuth.getUid();
+        var ref = firebaseFirestore.collection(USER_DATABASE_PATH).document(uid).collection(USER_CART_PATH);
+        ref.document(path).delete().addOnSuccessListener(aVoid -> {
+            onAddressRemoved.accept(null);
+        }).addOnFailureListener(onAddressRemoved::accept);
+    }
+
 }
 
